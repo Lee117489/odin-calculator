@@ -1,0 +1,101 @@
+main {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.screen {
+    display: grid;
+    justify-items: end;
+    align-items: center;
+    width: 400px;
+    height: 100px;
+    font-size: 45px;
+    background-color: #d7d7d7;
+}
+
+.buttons-grid {
+    display: grid;
+    height: 500px;
+    grid-template:
+    '. . . clear'
+    'seven eight nine divide'
+    'four five six multiply'
+    'one two three minus'
+    'zero decimal equals add';
+}
+
+button {
+    font-size: 45px;
+}
+
+#number-1 {
+    grid-area: one;
+}
+
+#number-2 {
+    grid-area: two;
+}
+
+#number-3 {
+    grid-area: three;
+}
+
+#number-4 {
+    grid-area: four;
+}
+
+#number-5 {
+    grid-area: five;
+}
+
+#number-5 {
+    grid-area: five;
+}
+
+#number-6 {
+    grid-area: six;
+}
+
+#number-7 {
+    grid-area: seven;
+}
+
+#number-8 {
+    grid-area: eight;
+}
+
+#number-9 {
+    grid-area: nine;
+}
+
+#number-0 {
+    grid-area: zero;
+}
+
+#add {
+    grid-area: add;
+}
+
+#equals {
+    grid-area: equals;
+}
+
+#divide {
+    grid-area: divide;
+}
+
+#subtract {
+    grid-area: minus;
+}
+
+#multiply {
+    grid-area: multiply;
+}
+
+#decimal {
+    grid-area: decimal;
+}
+
+#clear {
+    grid-area: clear;
+}
