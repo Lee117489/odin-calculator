@@ -18,6 +18,13 @@ equals.onclick = () => {
     console.log(`first: ${first} second: ${second} op: ${op}`);
     screen.textContent = operate(second, first, op);
 }
+const clear = document.querySelector('#clear');
+clear.onclick = () => {
+    first = '';
+    second = '';
+    op = '';
+    screen.textContent = 0;
+}
 
 
 const print = function(e) {
