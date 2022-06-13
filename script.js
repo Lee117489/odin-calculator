@@ -14,25 +14,31 @@ let first, second, op;
 
 const screen = document.querySelector('.screen');
 const equalsBtn = document.querySelector('.button.equals');
-equalsBtn.onclick = () => {
-    first = Number(first);
-    second = Number(second);
-    console.log(`first: ${typeof(first)} ${first} second: ${typeof(second)} ${second} op: ${op}`);
-    screen.textContent = operate(second, first, op);
-}
+equalsBtn.onclick = evaluate;
+    
 const clearBtn = document.querySelector('#clear');
 clearBtn.onclick = clear;
     
 
 function clear() {
-    first = '';
-    second = '';
+    first = 0;
+    second = 0;
     op = '';
     screen.textContent = 0;
 }
 
+function evaluate() {
+    first = Number(first);
+    second = Number(second);
+    console.log(`---Evaluation---`);
+    console.log(`first: ${typeof(first)} ${first} second: ${typeof(second)} ${second} op: ${op}`);
+    result = operate(second, first, op);
+    console.log(`Result: ${result}`);
+    screen.textContent = result;
+    second = result;
+}
 
-function print(e) {
+function getNumber(e) {
     if (screen.textContent == 0 || first == 0) {
         screen.textContent = '';
         first = '';
@@ -40,21 +46,26 @@ function print(e) {
     screen.textContent += e.target.innerText;
     first += e.target.innerText;
     console.log(first);
-
 }
 
 function choseOperator(e) {
-    second = first;
-    first = '';
-    op = e.target.id;
-    console.log(op);
+    
+    console.log(`second: ${second}`);
+    if (second === undefined || second == '') {
+        second = first;
+        first = 0;
+        op = e.target.id;
+    }
+    else {
+        evaluate();
+        first = 0;
+        op = e.target.id;
+    }
 }
+        
 
 const numberButtons = document.querySelectorAll('.button.number');
-numberButtons.forEach(button => button.addEventListener('click', print));
+numberButtons.forEach(button => button.addEventListener('click', getNumber));
 
 const operatorButtons = document.querySelectorAll('.button.operator');
 operatorButtons.forEach(button => button.addEventListener('click', choseOperator));
-
-
-
