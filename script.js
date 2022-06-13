@@ -13,13 +13,18 @@ const operate = (a, b, op) => {
 let first, second, op;
 
 const screen = document.querySelector('.screen');
-const equals = document.querySelector('.button.equals');
-equals.onclick = () => {
-    console.log(`first: ${first} second: ${second} op: ${op}`);
+const equalsBtn = document.querySelector('.button.equals');
+equalsBtn.onclick = () => {
+    first = Number(first);
+    second = Number(second);
+    console.log(`first: ${typeof(first)} ${first} second: ${typeof(second)} ${second} op: ${op}`);
     screen.textContent = operate(second, first, op);
 }
-const clear = document.querySelector('#clear');
-clear.onclick = () => {
+const clearBtn = document.querySelector('#clear');
+clearBtn.onclick = clear;
+    
+
+function clear() {
     first = '';
     second = '';
     op = '';
@@ -27,7 +32,7 @@ clear.onclick = () => {
 }
 
 
-const print = function(e) {
+function print(e) {
     if (screen.textContent == 0 || first == 0) {
         screen.textContent = '';
         first = '';
@@ -35,10 +40,10 @@ const print = function(e) {
     screen.textContent += e.target.innerText;
     first += e.target.innerText;
     console.log(first);
-    
+
 }
 
-const choseOp = function(e) {
+function choseOperator(e) {
     second = first;
     first = '';
     op = e.target.id;
@@ -49,9 +54,7 @@ const numberButtons = document.querySelectorAll('.button.number');
 numberButtons.forEach(button => button.addEventListener('click', print));
 
 const operatorButtons = document.querySelectorAll('.button.operator');
-operatorButtons.forEach(button => button.addEventListener('click', choseOp));
-
-
+operatorButtons.forEach(button => button.addEventListener('click', choseOperator));
 
 
 
