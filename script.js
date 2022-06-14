@@ -10,62 +10,83 @@ const operate = (a, b, op) => {
     if (op == 'divide') return divide(a, b);
 }
 
-let first, second, op;
+let first = 0;
+let second = 0;
+let op = '';
+
+const numberBtns = document.querySelectorAll('.button.number');
+numberBtns.forEach(button => button.addEventListener('click', getNumber));
+
+const operatorBtns = document.querySelectorAll('.button.operator');
+operatorBtns.forEach(button => button.addEventListener('click', choseOperator));
 
 const screen = document.querySelector('.screen');
+
 const equalsBtn = document.querySelector('.button.equals');
 equalsBtn.onclick = evaluate;
     
 const clearBtn = document.querySelector('#clear');
 clearBtn.onclick = clear;
+
+const decimalBtn = document.querySelector('#decimal');
+decimalBtn.addEventListener('click', addDecimal);
     
 
 function clear() {
     first = 0;
     second = 0;
     op = '';
-    screen.textContent = 0;
+    screen.textContent = '0';
+    decimalBtn.disabled = false;
 }
 
 function evaluate() {
     first = Number(first);
     second = Number(second);
+    if (op == '' || op == undefined) {
+        return;
+    }
+    if (op == 'divide' && first == 0) {
+        screen.textContent = `Division by zero..`;
+        return;
+    }
+    
     console.log(`---Evaluation---`);
-    console.log(`first: ${typeof(first)} ${first} second: ${typeof(second)} ${second} op: ${op}`);
-    result = operate(second, first, op);
-    console.log(`Result: ${result}`);
-    screen.textContent = result;
-    second = result;
+    console.log(`First: ${typeof(first)} ${first} Second: ${typeof(second)} ${second} Op: ${op}`);
+    second = operate(second, first, op);
+    screen.textContent = second;
+    decimalBtn.disabled = false;
+    
 }
 
 function getNumber(e) {
-    if (screen.textContent == 0 || first == 0) {
-        screen.textContent = '';
+    if (screen.textContent === '0' || first === 0) {
         first = '';
+        screen.textContent = first;
     }
-    screen.textContent += e.target.innerText;
+    if (first == '0.' || first == '.') {
+        first = '0.'
+        screen.textContent = first;
+    }
+  
     first += e.target.innerText;
-    console.log(first);
+    screen.textContent = first;
 }
 
 function choseOperator(e) {
-    
     console.log(`second: ${second}`);
-    if (second === undefined || second == '') {
+    if (second === undefined || second == 0) {
         second = first;
-        first = 0;
-        op = e.target.id;
     }
-    else {
-        evaluate();
-        first = 0;
-        op = e.target.id;
-    }
+    else evaluate();
+    first = 0;
+    op = e.target.id;
+    decimalBtn.disabled = false;
+}
+
+function addDecimal(e) {
+    first += e.target.innerText;
+    screen.textContent = first;
+    decimalBtn.disabled = true;
 }
         
-
-const numberButtons = document.querySelectorAll('.button.number');
-numberButtons.forEach(button => button.addEventListener('click', getNumber));
-
-const operatorButtons = document.querySelectorAll('.button.operator');
-operatorButtons.forEach(button => button.addEventListener('click', choseOperator));
