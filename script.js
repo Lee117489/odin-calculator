@@ -30,6 +30,9 @@ clearBtn.onclick = clear;
 
 const decimalBtn = document.querySelector('#decimal');
 decimalBtn.addEventListener('click', addDecimal);
+
+const deleteBtn = document.querySelector('#delete');
+deleteBtn.addEventListener('click', deleteFunc);
     
 
 function clear() {
@@ -56,7 +59,6 @@ function evaluate() {
     second = operate(second, first, op);
     screen.textContent = second;
     decimalBtn.disabled = false;
-    
 }
 
 function getNumber(e) {
@@ -89,4 +91,10 @@ function addDecimal(e) {
     screen.textContent = first;
     decimalBtn.disabled = true;
 }
-        
+
+function deleteFunc() {
+    if (first.length > 0) {
+        first = first.slice(0, first.length-1);
+        screen.textContent = first;
+    }
+}
