@@ -54,9 +54,10 @@ function evaluate() {
         return;
     }
     
-    console.log(`---Evaluation---`);
-    console.log(`First: ${typeof(first)} ${first} Second: ${typeof(second)} ${second} Op: ${op}`);
+    // console.log(`---Evaluation---`);
+    // console.log(`First: ${typeof(first)} ${first} Second: ${typeof(second)} ${second} Op: ${op}`);
     second = operate(second, first, op);
+    second = myRound(second, 14);
     screen.textContent = second;
     decimalBtn.disabled = false;
 }
@@ -76,7 +77,6 @@ function getNumber(e) {
 }
 
 function choseOperator(e) {
-    console.log(`second: ${second}`);
     if (second === undefined || second == 0) {
         second = first;
     }
@@ -97,4 +97,10 @@ function deleteFunc() {
         first = first.slice(0, first.length-1);
         screen.textContent = first;
     }
+}
+
+function myRound(value, places) {
+    var multiplier = Math.pow(10, places);
+
+    return (Math.round(value * multiplier) / multiplier);
 }
